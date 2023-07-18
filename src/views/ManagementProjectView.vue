@@ -59,7 +59,18 @@ export default {
           alias : "totalMm",
           name : "총 MM"
         },
+        {
+          alias : "delete",
+          name : ""
+        },
       ]
+    }
+  },
+  methods: {
+    handleDelete(index) {
+      console.log("handleDelete index : " + index)
+
+      // TODO: delete 처리 필요
     }
   }
 }
@@ -82,7 +93,10 @@ export default {
       </thead>
       <tbody>
         <tr v-for="(item, index) in items" :key="index">
-          <td class="text-center"  v-for="(column, indexColumn) in columns" :key="indexColumn">{{item[column.alias]}}</td>
+          <td class="text-center " v-for="(column, indexColumn) in columns" :key="indexColumn" >           
+              {{ item[column.alias] }}
+              <span v-if="indexColumn === columns.length - 1" class="x-button-td" @click="handleDelete(index)">&times;</span>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -92,29 +106,39 @@ export default {
 
 <style>
   .table {
-    min-width: 1000px !important;
     width: 100%;
-    background: #fff; 
-  }
-  
-  .table thead.thead-primary {
-    background: #1089ff; 
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
   }
 
   .table thead th {
-    border: none;
-    padding: 20px 30px;
-    /* font-size: 14px; */
-    color: #fff; 
-  }
-  .table tbody tr {
-    margin-bottom: 10px; 
+    background-color: #0d6efd;
+    color: #fff;
+    font-weight: bold;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #ccc;
   }
 
-  .table tbody th, .table tbody td {
-    border: none;
-    padding: 20px 30px;
-    border-bottom: 3px solid #f8f9fd;
-    /* font-size: 14px;  */
+  .table tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    vertical-align : middle;
   }
+
+  .table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+
+  .table tbody tr:hover {
+    background-color: #e9ecef;
+  }
+
+  .x-button-td {
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+    font-size:x-large
+  }
+
 </style>
